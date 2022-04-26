@@ -49,7 +49,7 @@ pipeline {
             sh 'ssh -o StrictHostKeyChecking=no -i "/tmp/firstkeypair.pem" ubuntu@10.0.102.65'
             sh 'echo successfully able to login into ec2'
             sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-            sh "docker container run -itp -p 8080:8081 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+            sh "docker container run -p 8080:8081 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
             
               }
             }

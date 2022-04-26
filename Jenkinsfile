@@ -48,18 +48,12 @@ pipeline {
                  sshagent(credentials: ['app-server-credentials']) {
             sh 'ssh -o StrictHostKeyChecking=no -i "/tmp/firstkeypair.pem" ubuntu@10.0.102.65'
             sh 'echo successfully able to login into ec2'
+            sh "docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+            sh "docker container run -itd -p 8080:8081 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
               }
             }
         }
-         stage('Pulling the image from ECR'){
-     steps{
-         script {
-             sh "docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-
-         }
-     }
-
-    }
+   
   
     }
 }

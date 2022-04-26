@@ -43,7 +43,14 @@ pipeline {
          }
         }
       }
-
+   stage('deploy stage'){
+            steps{
+                 sshagent(credentials: ['app-server-credentials']) {
+            sh 'ssh -i "firstkeypair.pem" ubuntu@10.0.102.65'
+            sh 'echo successfully able to login into ec2'
+              }
+            }
+        }
   
     }
 }
